@@ -36,6 +36,22 @@ export class AppComponent implements OnInit {
               }
             }
           ];
+        },
+        'card-buttons': (trello, options) => {
+          return [
+            {
+              icon: 'https://xupeiyao.github.io/TrelloGantt/assets/merge.png',
+              text: '相依性',
+              callback: (t: any) => {
+                t.card('id').then(card => {
+                  t.popup({
+                    title: '相依性',
+                    url: 'card/' + card.id
+                  });
+                });
+              }
+            }
+          ];
         }
       });
       //#endregion
