@@ -24,14 +24,10 @@ export class AppComponent implements OnInit {
               text: '甘特圖',
               condition: 'always',
               callback: (t: any) => {
-                t.board('id').then(board => {
-                  console.log(board);
-                  // t.lists('all').then(console.log);
-                  t.modal({
-                    title: '甘特圖',
-                    url: 'board/' + board.id,
-                    fullscreen: true
-                  });
+                t.modal({
+                  title: '甘特圖',
+                  url: 'board',
+                  fullscreen: true
                 });
               }
             }
@@ -43,11 +39,9 @@ export class AppComponent implements OnInit {
               icon: 'https://xupeiyao.github.io/TrelloGantt/assets/merge.png',
               text: '相依性',
               callback: (t: any) => {
-                t.card('id').then(card => {
-                  t.popup({
-                    title: '相依性',
-                    url: 'card/' + card.id
-                  });
+                t.popup({
+                  title: '相依性',
+                  url: 'card'
                 });
               }
             }

@@ -16,13 +16,10 @@ export class BoardGanttComponent implements OnInit {
   @ViewChild('gantt_here')
   ganttContainer: ElementRef;
 
-  boardId: string;
-
   trello: any;
 
   cards: any[] = [];
   constructor(private route: ActivatedRoute) {
-    this.boardId = route.snapshot.params.id;
     this.trello = TrelloPowerUp.iframe();
   }
 
