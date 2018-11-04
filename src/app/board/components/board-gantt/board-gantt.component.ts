@@ -69,7 +69,7 @@ export class BoardGanttComponent implements OnInit {
             id: card.id,
             text: card.name,
             start_date: this.getStartTimeFromId(card.id),
-            end_date: new Date(card.due),
+            end_date: card.due ? new Date(card.due) : new Date(),
             parent: list.id,
             progress: itemCheckItemsChecked / itemCheckItems,
             status:
@@ -89,7 +89,9 @@ export class BoardGanttComponent implements OnInit {
             totalCheckItemsChecked === totalCheckItems && allDueComplete
               ? '完成'
               : '執行中',
-          members: totalMembers
+          members: totalMembers.filter((value, index, ary) => {
+            return index === ary.indexOf(value);
+          })
         });
       }
 
