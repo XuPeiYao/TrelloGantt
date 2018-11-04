@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/dhtmlx-gantt/codebase/dhtmlxgantt.css';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.gantt_scale_line:first-child {
+  border-top: none;
+  display: none;
+}
