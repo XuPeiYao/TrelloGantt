@@ -10,7 +10,8 @@ declare var TrelloPowerUp;
 export class AppComponent implements OnInit {
   isInit = false;
   constructor() {
-    this.isInit = location.pathname === '/';
+    this.isInit =
+      location.pathname === document.querySelector('base').getAttribute('href');
   }
 
   ngOnInit(): void {
