@@ -42,6 +42,7 @@ export class DependenciesComponent implements OnInit {
   }
 
   add() {
+    if (!this.addItem) { return; }
     this.dependencies.push(this.getCardById(this.addItem));
     this.addItem = null;
 
@@ -50,6 +51,7 @@ export class DependenciesComponent implements OnInit {
       .then(() => {});
   }
   remove() {
+    if (!this.removeItem) { return; }
     this.dependencies = this.dependencies.filter(x => x.id !== this.removeItem);
     this.removeItem = null;
 
