@@ -131,7 +131,9 @@ export class BoardGanttComponent implements OnInit {
           tree: true
         },
         { name: 'status', label: '狀態', width: '*' },
-        { name: 'members', label: '成員', width: '*' }
+        { name: 'members', label: '成員', width: '*' },
+        { name: 'start_date', label: '起始', width: '*' },
+        { name: 'end_date', label: '結束', width: '*' }
       ];
       // { name: 'start_date', label: 'Start time', align: 'center' },
       // { name: 'duration', label: 'Duration', align: 'center' },
