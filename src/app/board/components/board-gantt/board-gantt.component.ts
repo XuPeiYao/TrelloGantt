@@ -147,6 +147,7 @@ export class BoardGanttComponent implements OnInit {
           min_width: 200,
           template: function(task) {
             let result = '';
+            task.members = task.members || [];
             for (const user of task.members) {
               if (user.avatar) {
                 result += `<span class="member-img"><a target="_blank" href="https://trello.com/${
@@ -176,6 +177,21 @@ export class BoardGanttComponent implements OnInit {
         data: groupLists,
         links: []
       });
+
+      for (const card of this.cards) {
+        this.trello
+          .get(card.id, 'shared', 'dependencies', [])
+          .then(dependencies => {
+            for (const dependent of dependencies) {
+              gantt.addLink({
+                id: card.id + dependent,
+                source: dependent,
+                target: card.id,
+                type: gantt.config.links.finish_to_start
+              });
+            }
+          });
+      }
 
       gantt.attachEvent('onTaskClick', (id, e) => {
         if (e.srcElement.classList[0] === 'gantt_task_content') {
