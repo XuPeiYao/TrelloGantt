@@ -24,14 +24,10 @@ export class AppComponent implements OnInit {
               text: '甘特圖',
               condition: 'always',
               callback: (t: any) => {
-                t.board('id').then(board => {
-                  console.log(board);
-                  // t.lists('all').then(console.log);
-                  t.modal({
-                    title: '甘特圖',
-                    url: 'board/' + board.id,
-                    fullscreen: true
-                  });
+                t.modal({
+                  title: '甘特圖',
+                  url: 'board',
+                  fullscreen: true
                 });
               }
             }
@@ -43,6 +39,7 @@ export class AppComponent implements OnInit {
               icon: 'https://social-plugins.line.me/img/web/lineit_select_line_icon_03.png',
               text: '用 LINE 傳送',
               callback: (t: any) => {
+                console.log(t);
                 const url = '';
                 window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`, null, 'width=503,height=500,resizable=yes,scrollbars=no,chrome=yes,centerscreen=yes');
               }
@@ -51,11 +48,10 @@ export class AppComponent implements OnInit {
               icon: 'https://xupeiyao.github.io/TrelloGantt/assets/merge.png',
               text: '相依性',
               callback: (t: any) => {
-                t.card('id').then(card => {
-                  t.popup({
-                    title: '相依性',
-                    url: 'card/' + card.id
-                  });
+                console.log(t);
+                t.popup({
+                  title: '相依性',
+                  url: 'card'
                 });
               }
             }

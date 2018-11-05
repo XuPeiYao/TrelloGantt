@@ -4,11 +4,11 @@ import { InitComponent } from './components/init/init.component';
 
 const routes: Routes = [
   {
-    path: 'board/:id',
+    path: 'board',
     loadChildren: './board/board.module#BoardModule'
   },
   {
-    path: 'card/:id',
+    path: 'card',
     loadChildren: './card/card.module#CardModule'
   },
   {

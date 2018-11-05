@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var TrelloPowerUp, gantt;
 
 @Component({
   selector: 'app-dependencies',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dependencies.component.scss']
 })
 export class DependenciesComponent implements OnInit {
-
-  constructor() { }
+  trello: any;
+  constructor() {
+    this.trello = TrelloPowerUp.iframe();
+  }
 
   ngOnInit() {
+    this.trello.render(() => {
+      this.trello.sizeTo('#depTaskEditor').done();
+    });
   }
+
 
 }
