@@ -71,7 +71,7 @@ export class BoardGanttComponent implements OnInit {
             progress: itemCheckItemsChecked / itemCheckItems,
             status:
               itemCheckItemsChecked === itemCheckItems &&
-                card.badges.dueComplete
+              card.badges.dueComplete
                 ? '完成'
                 : '執行中',
             members: itemMembers
@@ -105,7 +105,12 @@ export class BoardGanttComponent implements OnInit {
             width: 400,
             min_width: 300,
             rows: [
-              { view: 'grid', scrollX: 'gridScroll', scrollable: true, scrollY: 'scrollVer' },
+              {
+                view: 'grid',
+                scrollX: 'gridScroll',
+                scrollable: true,
+                scrollY: 'scrollVer'
+              },
 
               // horizontal scrollbar for the grid
               { view: 'scrollbar', id: 'gridScroll', group: 'horizontal' }
@@ -137,13 +142,26 @@ export class BoardGanttComponent implements OnInit {
         { name: 'start_date', label: '起始', min_width: 80, align: 'center' },
         { name: 'end_date', label: '結束', min_width: 80, align: 'center' },
         {
-          name: 'members', label: '成員', min_width: 200, template: function (task) {
+          name: 'members',
+          label: '成員',
+          min_width: 200,
+          template: function(task) {
             let result = '';
+            task.members = task.members || [];
             for (const user of task.members) {
               if (user.avatar) {
-                result += `<span class="member-img"><a target="_blank" href="https://trello.com/${user.username}" title="${user.fullName}"><img class="avatar" src="${user.avatar}"/></a></span>`;
+                result += `<span class="member-img"><a target="_blank" href="https://trello.com/${
+                  user.username
+                }" title="${user.fullName}"><img class="avatar" src="${
+                  user.avatar
+                }"/></a></span>`;
               } else {
-                result += `<span class="member-text"><a target="_blank" href="https://trello.com/${user.username}" title="${user.fullName}">${user.fullName.substring(0, 2)}</a></span>`;
+                result += `<span class="member-text"><a target="_blank" href="https://trello.com/${
+                  user.username
+                }" title="${user.fullName}">${user.fullName.substring(
+                  0,
+                  2
+                )}</a></span>`;
               }
             }
             return '<span>' + result + '</span>';
@@ -159,6 +177,21 @@ export class BoardGanttComponent implements OnInit {
         data: groupLists,
         links: []
       });
+
+      for (const card of this.cards) {
+        this.trello
+          .get(card.id, 'shared', 'dependencies', [])
+          .then(dependencies => {
+            for (const dependent of dependencies) {
+              gantt.addLink({
+                id: card.id + dependent,
+                source: dependent,
+                target: card.id,
+                type: gantt.config.links.finish_to_start
+              });
+            }
+          });
+      }
 
       gantt.attachEvent('onTaskClick', (id, e) => {
         if (e.srcElement.classList[0] === 'gantt_task_content') {

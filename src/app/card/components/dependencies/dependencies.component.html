@@ -1,14 +1,15 @@
 <div id="depTaskEditor">
   <label for="depTask">加入相依工作項目:</label>
-  <select name="size" id="depTask">
-    <optgroup label="待處理">
-      <option value="small">Small 👕</option> 
-    </optgroup>      
+  <select name="size" id="depTask" [(ngModel)]="addItem">
+    <optgroup *ngFor="let list of filterList" [label]="list.name">
+      <option *ngFor="let card of list.cards" [value]="card.id">{{card.name}}</option>
+    </optgroup>
   </select>
-  <button class="mod-primary">新增</button>
-  1<br/>
-  1<br/>
-  1<br/>
-  1<br/>
+  <button class="mod-primary" (click)="add()">新增</button>
+  <button class="mod-danger" (click)="remove()" style="float: right; margin-right: 0;">刪除</button>
+  <label for="depedTask">相依工作項目:</label>
+  <select id="depedTask" size="5" style="height:initial" [(ngModel)]="removeItem">
+    <option *ngFor="let card of dependencies" [value]="card.id">{{card.name}}</option>
+  </select>
 
 </div>
