@@ -14,6 +14,7 @@ export class DependenciesComponent implements OnInit {
   currentCardId;
 
   addItem;
+  removeItem;
   get filterList() {
     return clone(this.lists).map(x => {
       x.cards = x.cards.filter(
@@ -29,22 +30,54 @@ export class DependenciesComponent implements OnInit {
     this.trello = TrelloPowerUp.iframe();
   }
 
-  add() {}
+  getCardById(id) {
+    for (const list of this.lists) {
+      for (const card of list.cards) {
+        if (card.id === id) {
+          return card;
+        }
+      }
+    }
+    return null;
+  }
+
+  add() {
+    this.dependencies.push(this.getCardById(this.addItem));
+    this.addItem = null;
+
+    this.trello
+      .set('card', 'shared', 'dependencies', this.dependencies.map(x => x.id))
+      .then(() => {});
+  }
+  remove() {
+    this.dependencies = this.dependencies.filter(x => x.id !== this.removeItem);
+    this.removeItem = null;
+
+    this.trello
+      .set('card', 'shared', 'dependencies', this.dependencies.map(x => x.id))
+      .then(() => {});
+  }
 
   ngOnInit() {
     this.trello.render(() => {
-      this.trello.sizeTo('#depTaskEditor').done();
+      this.trello.sizeTo(280).done();
     });
+
+    this.currentCardId = this.trello.getContext().card;
 
     this.trello.lists('all').then(lists => {
       this.lists = lists;
-    });
-    this.currentCardId = this.trello.getContext().card;
 
-    this.trello
-      .set('card', 'shared', 'dependencies', '["5bdee8584f952344dda0ce99"]')
-      .then(() => {
-        console.log(this.trello.get('card', 'shared', 'dependencies', '[]'));
-      });
+      this.trello
+        .get(this.currentCardId, 'shared', 'dependencies', [])
+        .then(cardIds => {
+          for (const cardId of cardIds) {
+            const card = this.getCardById(cardId);
+            if (card) {
+              this.dependencies.push(card);
+            }
+          }
+        });
+    });
   }
 }
