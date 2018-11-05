@@ -11,3 +11,31 @@ body {
   border-top: none;
   display: none;
 }
+
+.member-text {
+  width: 28px;
+  display: inline-block;
+  height: 28px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 28px;
+  background-color: #dfe3e6;
+  border-radius: 25em;
+  color: #17394d;
+}
+
+
+
+.member-text>a {
+  margin-left: 2px;
+  text-decoration: none;
+}
+
+.avatar {
+  top: 4px;
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 25em;
+  overflow: hidden;
+}

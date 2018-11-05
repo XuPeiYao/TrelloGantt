@@ -54,7 +54,7 @@ export class BoardGanttComponent implements OnInit {
             itemCheckItems += card.badges.checkItems;
             itemCheckItemsChecked += card.badges.checkItemsChecked;
           }
-          itemMembers = card.members.map(x => x.fullName);
+          itemMembers = card.members;
           totalMembers = totalMembers.concat(itemMembers);
           if (!card.due) {
             gantt.message({
@@ -87,13 +87,16 @@ export class BoardGanttComponent implements OnInit {
               ? '完成'
               : '執行中',
           members: totalMembers.filter((value, index, ary) => {
-            return index === ary.indexOf(value);
+            return index === ary.map(x => x.id).indexOf(value.id);
           })
         });
       }
 
       // #region Gantt Init
       gantt.config.subscales = [{ unit: 'day', step: 1, date: '%Y/%m/%d' }];
+
+      gantt.config.open_tree_initially = true;
+
       // gantt.config.min_column_width = 200;
       gantt.config.layout = {
         css: 'gantt_container',
@@ -130,10 +133,22 @@ export class BoardGanttComponent implements OnInit {
           max_width: 300,
           tree: true
         },
-        { name: 'status', label: '狀態', width: '*' },
-        { name: 'members', label: '成員', width: '*' },
-        { name: 'start_date', label: '起始', width: '*' },
-        { name: 'end_date', label: '結束', width: '*' }
+        { name: 'status', label: '狀態', min_width: 80, align: 'center' },
+        { name: 'start_date', label: '起始', min_width: 80, align: 'center' },
+        { name: 'end_date', label: '結束', min_width: 80, align: 'center' },
+        {
+          name: 'members', label: '成員', min_width: 200, template: function (task) {
+            let result = '';
+            for (const user of task.members) {
+              if (user.avatar) {
+                result += `<span class="member-img"><a target="_blank" href="https://trello.com/${user.username}" title="${user.fullName}"><img class="avatar" src="${user.avatar}"/></a></span>`;
+              } else {
+                result += `<span class="member-text"><a target="_blank" href="https://trello.com/${user.username}" title="${user.fullName}">${user.fullName.substring(0, 2)}</a></span>`;
+              }
+            }
+            return '<span>' + result + '</span>';
+          }
+        }
       ];
       // { name: 'start_date', label: 'Start time', align: 'center' },
       // { name: 'duration', label: 'Duration', align: 'center' },
