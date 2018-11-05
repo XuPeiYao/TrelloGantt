@@ -7,12 +7,13 @@ declare var TrelloPowerUp, gantt;
   styleUrls: ['./dependencies.component.scss']
 })
 export class DependenciesComponent implements OnInit {
-  trello : any;
-  constructor() { }
+  trello: any;
+  constructor() {
+    this.trello = TrelloPowerUp.iframe();
+  }
 
   ngOnInit() {
-    this.trello = TrelloPowerUp.iframe();
-    this.trello.render(()=>{
+    this.trello.render(() => {
       this.trello.sizeTo('#depTaskEditor').done();
     });
   }

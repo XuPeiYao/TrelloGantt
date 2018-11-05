@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
               icon: 'https://social-plugins.line.me/img/web/lineit_select_line_icon_03.png',
               text: '用 LINE 傳送',
               callback: (t: any) => {
+                console.log(t);
                 const url = '';
                 window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`, null, 'width=503,height=500,resizable=yes,scrollbars=no,chrome=yes,centerscreen=yes');
               }
@@ -47,6 +48,7 @@ export class AppComponent implements OnInit {
               icon: 'https://xupeiyao.github.io/TrelloGantt/assets/merge.png',
               text: '相依性',
               callback: (t: any) => {
+                console.log(t);
                 t.popup({
                   title: '相依性',
                   url: 'card'
