@@ -101,10 +101,9 @@ export class BoardGanttComponent implements OnInit {
           {
             width: 400,
             min_width: 300,
-
-            // adding horizontal scrollbar to the grid via the scrollX attribute
             rows: [
               { view: 'grid', scrollX: 'gridScroll', scrollable: true, scrollY: 'scrollVer' },
+
               // horizontal scrollbar for the grid
               { view: 'scrollbar', id: 'gridScroll', group: 'horizontal' }
             ]
@@ -113,7 +112,9 @@ export class BoardGanttComponent implements OnInit {
           {
             rows: [
               { view: 'timeline', scrollX: 'scrollHor', scrollY: 'scrollVer' },
-              { view: 'scrollbar', id: 'scrollHor' }
+
+              // horizontal scrollbar for the timeline
+              { view: 'scrollbar', id: 'scrollHor', group: 'horizontal' }
             ]
           },
           { view: 'scrollbar', id: 'scrollVer' }
