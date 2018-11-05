@@ -71,7 +71,7 @@ export class BoardGanttComponent implements OnInit {
             progress: itemCheckItemsChecked / itemCheckItems,
             status:
               itemCheckItemsChecked === itemCheckItems &&
-              card.badges.dueComplete
+                card.badges.dueComplete
                 ? '完成'
                 : '執行中',
             members: itemMembers
@@ -96,26 +96,27 @@ export class BoardGanttComponent implements OnInit {
       gantt.config.subscales = [{ unit: 'day', step: 1, date: '%Y/%m/%d' }];
       // gantt.config.min_column_width = 200;
       gantt.config.layout = {
-        css: "gantt_container",
+        css: 'gantt_container',
         cols: [
-         {
-           width:400,
-           min_width: 300,
+          {
+            width: 400,
+            min_width: 300,
 
-           // adding horizontal scrollbar to the grid via the scrollX attribute
-           rows:[
-            {view: "grid", scrollX: "gridScroll", scrollable: true, scrollY: "scrollVer"}, 
-            {view: "scrollbar", id: "gridScroll"}  
-           ]
-         },
-         {resizer: true, width: 1},
-         {
-           rows:[
-            {view: "timeline", scrollX: "scrollHor", scrollY: "scrollVer"},
-            {view: "scrollbar", id: "scrollHor"}
-           ]
-         },
-         {view: "scrollbar", id: "scrollVer"}
+            // adding horizontal scrollbar to the grid via the scrollX attribute
+            rows: [
+              { view: 'grid', scrollX: 'gridScroll', scrollable: true, scrollY: 'scrollVer' },
+              // horizontal scrollbar for the grid
+              { view: 'scrollbar', id: 'gridScroll', group: 'horizontal' }
+            ]
+          },
+          { resizer: true, width: 1 },
+          {
+            rows: [
+              { view: 'timeline', scrollX: 'scrollHor', scrollY: 'scrollVer' },
+              { view: 'scrollbar', id: 'scrollHor' }
+            ]
+          },
+          { view: 'scrollbar', id: 'scrollVer' }
         ]
       };
       // default columns definition
