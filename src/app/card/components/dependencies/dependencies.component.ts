@@ -12,6 +12,8 @@ export class DependenciesComponent implements OnInit {
   lists: any[] = [];
   dependencies: any[] = [];
   currentCardId;
+
+  addItem;
   get filterList() {
     return clone(this.lists).map(x => {
       x.cards = x.cards.filter(
@@ -27,6 +29,8 @@ export class DependenciesComponent implements OnInit {
     this.trello = TrelloPowerUp.iframe();
   }
 
+  add() {}
+
   ngOnInit() {
     this.trello.render(() => {
       this.trello.sizeTo('#depTaskEditor').done();
@@ -36,5 +40,11 @@ export class DependenciesComponent implements OnInit {
       this.lists = lists;
     });
     this.currentCardId = this.trello.getContext().card;
+
+    this.trello
+      .set('card', 'shared', 'dependencies', '["5bdee8584f952344dda0ce99"]')
+      .then(() => {
+        console.log(this.trello.get('card', 'shared', 'dependencies', '[]'));
+      });
   }
 }

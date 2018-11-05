@@ -1,9 +1,10 @@
 <div id="depTaskEditor">
   <label for="depTask">加入相依工作項目:</label>
-  <select name="size" id="depTask">
+  <select name="size" id="depTask" [(ngModel)]="addItem">
     <optgroup *ngFor="let list of filterList" [label]="list.name">
       <option *ngFor="let card of list.cards" [value]="card.id">{{card.name}}</option>
     </optgroup>
   </select>
-  <button class="mod-primary">新增</button>
+  <button class="mod-primary" (click)="add()">新增</button>
+
 </div>
