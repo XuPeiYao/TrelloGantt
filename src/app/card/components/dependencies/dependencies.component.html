@@ -1,14 +1,9 @@
 <div id="depTaskEditor">
   <label for="depTask">加入相依工作項目:</label>
   <select name="size" id="depTask">
-    <optgroup label="待處理">
-      <option value="small">Small 👕</option> 
-    </optgroup>      
+    <optgroup *ngFor="let list of filterList" [label]="list.name">
+      <option *ngFor="let card of list.cards" [value]="card.id">{{card.name}}</option>
+    </optgroup>
   </select>
   <button class="mod-primary">新增</button>
-  1<br/>
-  1<br/>
-  1<br/>
-  1<br/>
-
 </div>
