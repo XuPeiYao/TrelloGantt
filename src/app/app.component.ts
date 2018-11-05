@@ -39,7 +39,8 @@ export class AppComponent implements OnInit {
               icon: 'https://social-plugins.line.me/img/web/lineit_select_line_icon_03.png',
               text: '用 LINE 傳送',
               callback: (t: any) => {
-                console.log(t);
+                window['t'] = t;
+                console.log(t.getContext());
                 const url = '';
                 window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`, null, 'width=503,height=500,resizable=yes,scrollbars=no,chrome=yes,centerscreen=yes');
               }
