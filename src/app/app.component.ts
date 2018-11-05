@@ -51,6 +51,12 @@ export class AppComponent implements OnInit {
               }
             },
             {
+              icon:
+                'https://cdn.glitch.com/1b42d7fe-bda8-4af8-a6c8-eff0cea9e08a%2Frocket-ship.png?1494946700421',
+              text: '起始日',
+              callback: (t: any) => {}
+            },
+            {
               icon: 'https://xupeiyao.github.io/TrelloGantt/assets/merge.png',
               text: '相依性',
               callback: (t: any) => {
